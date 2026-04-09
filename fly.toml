@@ -1,0 +1,54 @@
+# Fly.io configuration for Toolspage
+app = "toolspage"
+primary_region = "iad"  # US East (Iowa) - change to closest region
+
+[build]
+dockerfile = "Dockerfile"
+
+[env]
+NODE_ENV = "production"
+CORS_ALLOW_ALL = "true"
+MEDIA_URL_INGEST_ENABLED = "true"
+YTDLP_DEFAULT_QUALITY = "best"
+FFMPEG_COMMAND = "ffmpeg"
+FFPROBE_COMMAND = "ffprobe"
+YTDLP_COMMAND = "yt-dlp"
+LOG_LEVEL = "info"
+
+[http_service]
+internal_port = 8080
+force_https = true
+auto_stop_machines = true
+auto_start_machines = true
+min_machines_running = 1
+processes = ["app"]
+
+[[services]]
+protocol = "tcp"
+internal_port = 8080
+processes = ["app"]
+
+[[services.ports]]
+port = 80
+handlers = ["http"]
+
+[[services.ports]]
+port = 443
+handlers = ["tls", "http"]
+
+[checks]
+  [checks.alive]
+  type = "http"
+  interval = "10s"
+  timeout = "5s"
+  grace_period = "30s"
+  method = "get"
+  path = "/manifest.json"
+
+[vm]
+size = "shared-cpu-1x"
+memory_mb = 512
+
+[[mounts]]
+source = "toolspage_data"
+destination = "/data"

@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TikTok Downloader - Toolspage</title>
+  <meta name="description" content="Download TikTok videos in video or audio mode with async progress updates." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="../index.html">TOOLSPAGE</a>
+      <div class="nav-right">
+        <button id="themeToggle" class="theme-toggle" aria-label="Toggle dark mode">
+          <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <button id="menuBtn" class="menu-btn" aria-label="Open navigation">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+      <nav id="mainNav" class="main-nav" aria-label="Primary">
+        <a href="../index.html#tools">Tools</a>
+        <a href="../index.html#trust">Trust</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="tool-shell container">
+    <a class="back-link" href="../index.html">Back to Home</a>
+    <div class="tool-layout">
+      <section class="tool-panel downloader-panel">
+        <h1>TikTok Downloader</h1>
+        <p>Download TikTok media quickly with selectable quality and robust queued processing.</p>
+
+        <div class="downloader-chips" aria-label="Platform support">
+          <span class="pill">TikTok</span>
+          <span class="pill">Short links</span>
+          <span class="pill">Audio mode</span>
+          <span class="pill">Queue retries</span>
+        </div>
+
+        <form id="platformDownloaderForm" class="tool-form" data-platform="tiktok" data-tool-name="TikTok Downloader">
+          <div>
+            <label for="platformSourceUrl">TikTok URL</label>
+            <input id="platformSourceUrl" type="url" required placeholder="https://www.tiktok.com/@user/video/..." />
+            <p id="platformHint" class="muted downloader-inline-note" aria-live="polite"></p>
+          </div>
+
+          <div class="inline-grid">
+            <div>
+              <label for="platformMode">Mode</label>
+              <select id="platformMode">
+                <option value="video" selected>Video</option>
+                <option value="audio">Audio only</option>
+              </select>
+            </div>
+            <div>
+              <label for="platformQuality">Quality profile</label>
+              <select id="platformQuality">
+                <option value="1080p">1080p</option>
+                <option value="720p">720p</option>
+                <option value="480p">480p</option>
+                <option value="audio-high">Audio high</option>
+                <option value="audio-medium">Audio medium</option>
+                <option value="audio-low">Audio low</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="inline-grid">
+            <div>
+              <label for="platformVideoFormat">Video format</label>
+              <select id="platformVideoFormat">
+                <option value="mp4" selected>MP4</option>
+                <option value="webm">WebM</option>
+                <option value="mkv">MKV</option>
+              </select>
+            </div>
+            <div>
+              <label for="platformAudioFormat">Audio format</label>
+              <select id="platformAudioFormat">
+                <option value="mp3" selected>MP3</option>
+                <option value="m4a">M4A</option>
+                <option value="aac">AAC</option>
+                <option value="wav">WAV</option>
+              </select>
+            </div>
+          </div>
+
+          <button class="btn btn-primary" type="submit">Download TikTok Media</button>
+          <p id="platformStatus" class="muted" aria-live="polite"></p>
+
+          <section class="progress-panel" aria-live="polite">
+            <div class="progress-head">
+              <strong id="platformProgressStage">Waiting to start</strong>
+              <span id="platformProgressPercent">0%</span>
+            </div>
+            <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="platformProgressTrack">
+              <div class="progress-fill" id="platformProgressFill"></div>
+            </div>
+          </section>
+
+          <div class="result-box" hidden data-result>
+            <p class="result-line" data-result-text></p>
+            <a href="#" class="tool-link" data-download-link>Download output</a>
+          </div>
+        </form>
+      </section>
+
+      <aside class="tool-panel">
+        <h2>Usage Notes</h2>
+        <ul>
+          <li>Supports standard TikTok links and shortened variants.</li>
+          <li>Audio mode is useful for narration and background tracks.</li>
+          <li>Respect platform terms and only process media you are permitted to use.</li>
+        </ul>
+      </aside>
+    </div>
+  </main>
+
+  <script src="../assets/js/api-client.js"></script>
+  <script src="../assets/js/tiktok-downloader.js"></script>
+  <script src="../assets/js/app.js"></script>
+</body>
+</html>

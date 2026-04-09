@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Toolspage - Fast Everyday Utility Tools</title>
+  <meta name="description" content="Elite-grade file and media processing utility hub." />
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#0f766e" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <link rel="apple-touch-icon" href="toolspage_pwa_logo_512_1774686270114.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="#">TOOLSPAGE</a>
+      <div class="nav-right">
+        <button id="themeToggle" class="theme-toggle" aria-label="Toggle dark mode">
+          <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <button id="menuBtn" class="menu-btn" aria-label="Open navigation">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+      <nav id="mainNav" class="main-nav" aria-label="Primary">
+        <a href="#tools">Tools</a>
+        <a href="#categories">Categories</a>
+        <a href="#trust">Trust</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero container reveal">
+      <p class="kicker">FAST + PRIVACY-FIRST</p>
+      <h1>Everyday file tools that feel instant.</h1>
+      <p class="hero-copy">Convert, compress, and generate in seconds. No account required for core tasks.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#tools">Explore MVP Tools</a>
+        <a class="btn btn-secondary" href="#trust">See Data Policy</a>
+      </div>
+      <div class="stats">
+        <article>
+          <h3>18</h3>
+          <p>Tier-1 MVP tools</p>
+        </article>
+        <article>
+          <h3>&lt; 25s</h3>
+          <p>Target median time-to-download</p>
+        </article>
+        <article>
+          <h3>Mobile-first</h3>
+          <p>Optimized for touch and quick actions</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="categories" class="container section reveal">
+      <h2>Priority Categories</h2>
+      <div class="pill-row">
+        <span class="pill">PDF</span>
+        <span class="pill">Image</span>
+        <span class="pill">QR</span>
+        <span class="pill">OCR</span>
+        <span class="pill">Media</span>
+      </div>
+    </section>
+
+    <section id="tools" class="container section reveal">
+      <div class="section-head">
+        <h2>MVP Tools</h2>
+        <p>High-intent tasks based on demand and competitor signals.</p>
+      </div>
+      <div class="tool-grid">
+        <article class="tool-card reveal">
+          <h3>PDF to Word <span class="status-live">Live</span></h3>
+          <p>Convert PDFs into editable DOCX quickly.</p>
+          <a class="tool-link" href="tools/pdf-to-word.html">Open Tool</a>
+        </article>
+        <article class="tool-card reveal">
+          <h3>PDF to JPG <span class="status-live">Live</span></h3>
+          <p>Export every PDF page as a clean image.</p>
+          <a class="tool-link" href="tools/pdf-to-jpg.html">Open Tool</a>
+        </article>
+        <article class="tool-card reveal">
+          <h3>Word to PDF <span class="status-live">Live</span></h3>
+          <p>Build consistent, shareable PDFs from DOCX files.</p>
+          <a class="tool-link" href="tools/word-to-pdf.html">Open Tool</a>
+        </article>
+        <article class="tool-card reveal">
+          <h3>JPG to PDF <span class="status-live">Live</span></h3>
+          <p>Convert one or more images into a single PDF.</p>
+          <a class="tool-link" href="tools/jpg-to-pdf.html">Open Tool</a>
+        </article>
+        <article class="tool-card reveal">
+          <h3>Merge PDF <span class="status-live">Live</span></h3>
+          <p>Combine multiple files in your preferred order.</p>
+          <a class="tool-link" href="tools/merge-pdf.html">Open Tool</a>
+        </article>
+        <article class="tool-card reveal">
+          <h3>Compress PDF <span class="status-live">Live</span></h3>
+          <p>Preset targets including 100KB, 200KB, and 500KB.</p>
+          <a class="tool-link" href="tools/compress-pdf.html">Open Tool</a>
+        </article>
+        <article class="tool-card reveal">
+          <h3>Compress Image <span class="status-live">Live</span></h3>
+          <p>Reduce JPG/PNG/WebP size without visible loss.</p>
+          <a class="tool-link" href="tools/compress-image.html">Open Tool</a>
+        </article>
+        <article class="tool-card reveal">
+          <h3>Resize Image <span class="status-live">Live</span></h3>
+          <p>Set exact dimensions by pixels or ratio.</p>
+          <a class="tool-link" href="tools/resize-image.html">Open Tool</a>
+        </article>
+        <article class="tool-card reveal">
+          <h3>Remove Background <span class="status-live">Live</span></h3>
+          <p>Get cutout-ready images for profiles and products.</p>
+          <a class="tool-link" href="tools/remove-background.html">Open Tool</a>
+        </article>
+        <article class="tool-card reveal">
+          <h3>QR Generator <span class="status-live">Live</span></h3>
+          <p>Create URL, Text, Wi-Fi, and vCard QR codes.</p>
+          <a class="tool-link" href="tools/qr-generator.html">Open Tool</a>
+        </article>
+        <article class="tool-card reveal">
+          <h3>OCR Extract <span class="status-live">Live</span></h3>
+          <p>Turn scanned docs and images into searchable text.</p>
+          <a class="tool-link" href="tools/ocr-extract.html">Open Tool</a>
+        </article>
+        <article class="tool-card reveal">
+          <h3>Video Compress <span class="status-live">Live</span></h3>
+          <p>Compress videos for portals, chats, and bandwidth-limited uploads.</p>
+          <a class="tool-link" href="tools/video-compress.html">Open Tool</a>
+        </article>
+        <article class="tool-card reveal">
+          <h3>YouTube Downloader <span class="status-live">Live</span></h3>
+          <p>Download video/audio, inspect metadata, and process playlists with live progress updates.</p>
+          <a class="tool-link" href="tools/video-downloader.html">Open Tool</a>
+          <a class="tool-link" href="docs/MEDIA-OPERATIONS.md">Supported Platforms + Ops Guide</a>
+        </article>
+        <article class="tool-card reveal">
+          <h3>Pinterest Downloader <span class="status-live">Live</span></h3>
+          <p>Download Pinterest pin videos and audio with queue-backed reliability and format controls.</p>
+          <a class="tool-link" href="tools/pinterest-downloader.html">Open Tool</a>
+          <a class="tool-link" href="docs/MEDIA-OPERATIONS.md">Supported Platforms + Ops Guide</a>
+        </article>
+        <article class="tool-card reveal">
+          <h3>TikTok Downloader <span class="status-live">Live</span></h3>
+          <p>Download TikTok media in video or audio mode with async progress and automatic fallback quality.</p>
+          <a class="tool-link" href="tools/tiktok-downloader.html">Open Tool</a>
+          <a class="tool-link" href="docs/MEDIA-OPERATIONS.md">Supported Platforms + Ops Guide</a>
+        </article>
+        <article class="tool-card reveal">
+          <h3>YouTube Thumbnail Downloader <span class="status-live">Live</span></h3>
+          <p>Extract and download all available YouTube thumbnail sizes without uploading files.</p>
+          <a class="tool-link" href="tools/youtube-thumbnail.html">Open Tool</a>
+        </article>
+        <article class="tool-card reveal">
+          <h3>Video to MP3 <span class="status-live">Live</span></h3>
+          <p>Extract MP3 from uploads or platform URLs with quality presets and async queue processing.</p>
+          <a class="tool-link" href="tools/video-to-mp3.html">Open Tool</a>
+          <a class="tool-link" href="docs/MEDIA-OPERATIONS.md">Supported Platforms + Ops Guide</a>
+        </article>
+        <article class="tool-card">
+          <h3>Audio Convert <span class="status-live">Live</span></h3>
+          <p>Transcode audio across MP3, WAV, AAC, OGG, and M4A formats.</p>
+          <a class="tool-link" href="tools/audio-convert.html">Open Tool</a>
+        </article>
+      </div>
+    </section>
+
+    <section id="trust" class="container section trust reveal">
+      <h2>Trust by Default</h2>
+      <ul>
+        <li>Clear auto-delete window shown on every tool page.</li>
+        <li>No mandatory signup for core tools.</li>
+        <li>Performance targets based on Core Web Vitals.</li>
+        <li>Policy-safe usage model for copyrighted content.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-wrap">
+      <p>Toolspage MVP scaffold</p>
+      <p>Fast, privacy-first workflows</p>
+    </div>
+  </footer>
+
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Elite Dashboard - Toolspage</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body data-theme="dark">
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="index.html">TOOLSPAGE</a>
+      <div class="nav-right">
+        <button id="themeToggle" class="theme-toggle" aria-label="Toggle dark mode">
+          <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container reveal">
+    <div class="hero">
+      <p class="kicker">Real-time Infrastructure</p>
+      <h1>Elite Status Hub</h1>
+      <p class="hero-copy">Monitoring your precision processing engine.</p>
+    </div>
+
+    <div class="stats">
+      <article>
+        <p class="muted">Live Backend</p>
+        <h3 id="backend">...</h3>
+      </article>
+      <article>
+        <p class="muted">Waiting</p>
+        <h3 id="queued">0</h3>
+      </article>
+      <article>
+        <p class="muted">Active</p>
+        <h3 id="running">0</h3>
+      </article>
+      <article>
+        <p class="muted">Completed (Total)</p>
+        <h3 id="total">0</h3>
+      </article>
+    </div>
+
+    <div class="section">
+      <div class="tool-panel">
+        <h2>Cluster Health</h2>
+        <div id="statusList" class="tool-form">
+          <p id="healthMsg">Fetching real-time metrics...</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="assets/js/app.js"></script>
+  <script>
+    const updateStats = async () => {
+      try {
+        const res = await fetch('/api/v1/health/stats');
+        const data = await res.json();
+        if (data.ok) {
+          const s = data.stats;
+          document.getElementById('backend').innerText = s.backend.toUpperCase();
+          document.getElementById('queued').innerText = s.queued;
+          document.getElementById('running').innerText = s.running;
+          document.getElementById('total').innerText = s.total;
+          
+          const workersText = s.workerEnabled ? `Active (Workers Busy: ${s.workersBusy})` : 'Disabled';
+          document.getElementById('healthMsg').innerHTML = `
+            <div style="display: flex; justify-content: space-between;">
+              <span><strong>Worker Cluster:</strong></span>
+              <span style="color: var(--brand-light);">${workersText}</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-top: 0.5rem;">
+              <span><strong>Failed Jobs:</strong></span>
+              <span style="color: var(--brand-2);">${s.failed}</span>
+            </div>
+          `;
+        }
+      } catch (e) {
+        console.error('Stats fetch failed:', e);
+      }
+    };
+
+    setInterval(updateStats, 3000);
+    updateStats();
+  </script>
+</body>
+</html>

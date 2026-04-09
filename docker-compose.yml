@@ -1,0 +1,64 @@
+services:
+  toolspage:
+    build: .
+    container_name: toolspage
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+    environment:
+      - REDIS_URL=${REDIS_URL:-redis://redis:6379}
+      - RUN_QUEUE_WORKER_IN_API=${RUN_QUEUE_WORKER_IN_API:-false}
+      - OUTPUT_LOCAL_DIR=/data/outputs
+      - DISTRIBUTED_RATE_LIMIT=${DISTRIBUTED_RATE_LIMIT:-true}
+      - OUTPUT_AUDIT_LOG_PATH=/data/output-audit.log
+    volumes:
+      - toolspage_data:/data
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+    depends_on:
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "-", "http://localhost:8080/api/v1/info/status"]
+      interval: 20s
+      timeout: 3s
+      retries: 5
+
+  toolspage-worker:
+    build: .
+    container_name: toolspage-worker
+    command: ["node", "server/worker.js"]
+    env_file:
+      - .env
+    environment:
+      - REDIS_URL=${REDIS_URL:-redis://redis:6379}
+      - RUN_QUEUE_WORKER_IN_API=false
+      - OUTPUT_LOCAL_DIR=/data/outputs
+      - OUTPUT_AUDIT_LOG_PATH=/data/output-audit.log
+    volumes:
+      - toolspage_data:/data
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+    depends_on:
+      redis:
+        condition: service_healthy
+
+  redis:
+    image: redis:7-alpine
+    container_name: toolspage-redis
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  toolspage_data:
+  redis_data:

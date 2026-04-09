@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>YouTube Downloader - Toolspage</title>
+  <meta name="description" content="Download YouTube and platform video/audio, inspect metadata, and process playlists." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="../index.html">TOOLSPAGE</a>
+      <div class="nav-right">
+        <button id="themeToggle" class="theme-toggle" aria-label="Toggle dark mode">
+          <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <button id="menuBtn" class="menu-btn" aria-label="Open navigation">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+      <nav id="mainNav" class="main-nav" aria-label="Primary">
+        <a href="../index.html#tools">Tools</a>
+        <a href="../index.html#trust">Trust</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="tool-shell container">
+    <a class="back-link" href="../index.html">Back to Home</a>
+    <div class="tool-layout">
+      <section class="tool-panel downloader-panel">
+        <h1>YouTube Downloader Pro</h1>
+        <p>Paste once, analyze instantly, then download with live pipeline progress and quality controls.</p>
+
+        <div class="downloader-quick-actions" aria-label="Quick actions">
+          <button class="btn btn-secondary" type="button" id="pasteUrlBtn">Paste URL</button>
+          <button class="btn btn-secondary" type="button" id="clearUrlBtn">Clear</button>
+          <button class="btn btn-secondary" type="button" id="analyzeUrlBtn">Analyze URL</button>
+        </div>
+
+        <div class="downloader-chips" aria-label="Platform support">
+          <span class="pill">YouTube</span>
+          <span class="pill">Vimeo</span>
+          <span class="pill">TikTok</span>
+          <span class="pill">SoundCloud</span>
+          <span class="pill">Facebook</span>
+        </div>
+
+        <form id="videoDownloaderForm" class="tool-form">
+          <div>
+            <label for="downloadSourceUrl">Paste a URL</label>
+            <input id="downloadSourceUrl" type="url" required placeholder="https://www.youtube.com/watch?v=..." />
+            <p id="platformHint" class="muted downloader-inline-note" aria-live="polite"></p>
+          </div>
+
+          <div class="smart-presets">
+            <h2>Quick Presets</h2>
+            <p class="muted">One-click setup for common use cases.</p>
+            <div class="smart-preset-grid" id="presetGrid">
+              <button class="preset-btn" type="button" data-preset="archive">📦 Archive<br><small>1080p MKV, highest quality</small></button>
+              <button class="preset-btn" type="button" data-preset="mobile">📱 Mobile<br><small>480p MP4, compact size</small></button>
+              <button class="preset-btn" type="button" data-preset="audio">🎵 Audio Only<br><small>High-quality MP3, 320 kbps</small></button>
+              <button class="preset-btn" type="button" data-preset="creator">🎬 Creator<br><small>1080p60 MP4, smooth motion</small></button>
+            </div>
+          </div>
+
+          <div>
+            <label for="downloadQualityProfile">Pick a Quality</label>
+            <select id="downloadQualityProfile">
+              <optgroup label="Video – Ultra High Quality">
+                <option value="4k60">4K UHD 60fps – Cinematic, largest file (~50-100 MB/min)</option>
+                <option value="4k">4K UHD – Premium, huge file (~40-80 MB/min)</option>
+              </optgroup>
+              <optgroup label="Video – High Quality">
+                <option value="1440p60">1440p 60fps – High resolution, very smooth (~25-40 MB/min)</option>
+                <option value="1440p">1440p – High resolution (~20-35 MB/min)</option>
+                <option value="1080p60">1080p 60fps – Full HD, smooth (~15-25 MB/min)</option>
+                <option value="1080p">1080p – Full HD (~10-20 MB/min)</option>
+              </optgroup>
+              <optgroup label="Video – Standard">
+                <option value="720p60">720p 60fps – Smooth HD (~8-15 MB/min)</option>
+                <option value="720p">720p – Balanced (~5-10 MB/min)</option>
+                <option value="480p">480p – Small, fastest (~2-5 MB/min)</option>
+              </optgroup>
+              <optgroup label="Audio Only">
+                <option value="audio-high">Audio only – High quality (320 kbps)</option>
+                <option value="audio-medium">Audio only – Standard (192 kbps)</option>
+                <option value="audio-low">Audio only – Low bandwidth (128 kbps)</option>
+              </optgroup>
+            </select>
+            <p class="muted downloader-inline-note">Click Analyze URL to load exact available qualities for this video. Higher resolution means larger file size.</p>
+          </div>
+
+          <details class="advanced-options-section">
+            <summary>Advanced Options</summary>
+            <div class="inline-grid" id="formatControls">
+              <div>
+              <label for="videoFormat">Video format</label>
+              <select id="videoFormat">
+                <option value="mp4" selected>MP4</option>
+                <option value="webm">WebM</option>
+                <option value="mkv">MKV</option>
+              </select>
+              </div>
+
+              <div>
+              <label for="audioFormat">Audio format</label>
+              <select id="audioFormat">
+                <option value="mp3" selected>MP3</option>
+                <option value="m4a">M4A</option>
+                <option value="aac">AAC</option>
+                <option value="wav">WAV</option>
+              </select>
+              </div>
+            </div>
+
+            <label>
+              <input id="allowPlaylist" type="checkbox" />
+              Allow playlist/channel processing (bounded by server limits)
+            </label>
+            <div>
+              <label for="playlistMaxItems">Playlist max items</label>
+              <input id="playlistMaxItems" type="number" min="1" max="200" value="25" />
+            </div>
+            <label>
+              <input id="includeSubtitles" type="checkbox" />
+              Include subtitles when available
+            </label>
+            <div>
+              <label for="subtitleFormat">Subtitle format</label>
+              <select id="subtitleFormat">
+                <option value="vtt" selected>VTT</option>
+                <option value="srt">SRT</option>
+              </select>
+            </div>
+            <div>
+              <label for="subtitleLanguages">Subtitle languages (comma-separated)</label>
+              <input id="subtitleLanguages" type="text" placeholder="en,es,fr" />
+            </div>
+          </details>
+
+          <button class="btn btn-primary" type="submit">Start Download</button>
+          <p id="videoDownloaderStatus" class="muted" aria-live="polite"></p>
+
+          <section class="progress-panel" id="progressPanel" aria-live="polite">
+            <div class="progress-head">
+              <strong id="progressStage">Waiting to start</strong>
+              <span id="progressPercent">0%</span>
+            </div>
+            <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progressTrack">
+              <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-meta">
+              <span id="progressSpeed">Speed: -</span>
+              <span id="progressEta">ETA: -</span>
+              <span id="progressSize">Size: -</span>
+            </div>
+            <ol class="phase-chips progress-timeline" id="progressTimeline" aria-label="Pipeline phases">
+              <li class="phase-chip" data-phase="queued" data-status="pending"><span class="phase-chip-dot"></span><span class="phase-chip-label">Queued</span></li>
+              <li class="phase-chip" data-phase="metadata" data-status="pending"><span class="phase-chip-dot"></span><span class="phase-chip-label">Metadata</span></li>
+              <li class="phase-chip" data-phase="downloading" data-status="pending"><span class="phase-chip-dot"></span><span class="phase-chip-label">Downloading</span></li>
+              <li class="phase-chip" data-phase="merging" data-status="pending"><span class="phase-chip-dot"></span><span class="phase-chip-label">Merging</span></li>
+              <li class="phase-chip" data-phase="storing" data-status="pending"><span class="phase-chip-dot"></span><span class="phase-chip-label">Storing</span></li>
+              <li class="phase-chip" data-phase="completed" data-status="pending"><span class="phase-chip-dot"></span><span class="phase-chip-label">Done</span></li>
+            </ol>
+          </section>
+
+          <section class="metadata-panel" id="metadataPanel" hidden>
+            <h3>Inspection Preview</h3>
+            <p id="metadataSummary" class="muted">Run Analyze URL to preview title, duration, and format hints.</p>
+            <pre id="metadataPreview" class="metadata-preview" aria-live="polite"></pre>
+          </section>
+
+          <div class="result-box" hidden data-result>
+            <p class="result-line" data-result-text></p>
+            <a href="#" class="tool-link" data-download-link>Download output</a>
+          </div>
+
+          <section class="playlist-panel" id="playlistPanel" hidden>
+            <h3>Playlist Summary</h3>
+            <div class="playlist-stats">
+              <div class="playlist-stat"><span class="playlist-stat-value" id="playlistStatTotal">0</span><small>Expected</small></div>
+              <div class="playlist-stat playlist-stat--done"><span class="playlist-stat-value" id="playlistStatDone">—</span><small>Done</small></div>
+              <div class="playlist-stat playlist-stat--failed"><span class="playlist-stat-value" id="playlistStatFailed">—</span><small>Failed</small></div>
+              <div class="playlist-stat"><span class="playlist-stat-value" id="playlistStatSkipped">—</span><small>Skipped</small></div>
+            </div>
+            <p id="playlistNote" class="muted"></p>
+          </section>
+        </form>
+      </section>
+
+      <aside class="tool-panel">
+        <h2>Downloader Playbook</h2>
+        <ul>
+          <li><strong>Step 1:</strong> paste a URL and click Analyze URL for metadata confidence checks.</li>
+          <li><strong>Step 2:</strong> choose a smart preset or tune mode, quality, and format manually.</li>
+          <li><strong>Step 3:</strong> start the download and monitor percent, speed, ETA, and stage transitions.</li>
+          <li><strong>Playlist support:</strong> enable playlist mode and set a safe max item cap.</li>
+          <li><strong>Subtitles:</strong> include auto/manual subtitles in VTT or SRT when available.</li>
+        </ul>
+
+        <div class="result-box">
+          <p class="result-line">Ethical and legal use</p>
+          <p class="muted">Only download media you own or are explicitly permitted to process. Some platforms block protected content by policy.</p>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <script src="../assets/js/api-client.js"></script>
+  <script src="../assets/js/video-downloader.js"></script>
+  <script src="../assets/js/app.js"></script>
+</body>
+</html>

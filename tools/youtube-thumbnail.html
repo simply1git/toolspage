@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>YouTube Thumbnail Downloader - Toolspage</title>
+  <meta name="description" content="Preview and download all available YouTube thumbnail sizes from a video URL." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="../index.html">TOOLSPAGE</a>
+      <div class="nav-right">
+        <button id="themeToggle" class="theme-toggle" aria-label="Toggle dark mode">
+          <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <button id="menuBtn" class="menu-btn" aria-label="Open navigation">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+      <nav id="mainNav" class="main-nav" aria-label="Primary">
+        <a href="../index.html#tools">Tools</a>
+        <a href="../index.html#trust">Trust</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="tool-shell container">
+    <a class="back-link" href="../index.html">Back to Home</a>
+    <div class="tool-layout">
+      <section class="tool-panel">
+        <h1>YouTube Thumbnail Downloader</h1>
+        <p>Extract and download high-quality thumbnail images from any public YouTube URL.</p>
+        <form id="youtubeThumbnailForm" class="tool-form">
+          <div>
+            <label for="thumbnailSourceUrl">YouTube URL</label>
+            <input id="thumbnailSourceUrl" type="url" required placeholder="https://www.youtube.com/watch?v=dQw4w9WgXcQ" />
+          </div>
+          <button class="btn btn-primary" type="submit">Load Thumbnails</button>
+          <p id="youtubeThumbnailStatus" class="muted" aria-live="polite"></p>
+        </form>
+        <div id="thumbnailResults" class="tool-grid" style="margin-top: 1rem;"></div>
+      </section>
+
+      <aside class="tool-panel">
+        <h2>How It Works</h2>
+        <ul>
+          <li>Supports full YouTube URLs, shorts links, and youtu.be links.</li>
+          <li>Automatically checks each known resolution and shows only available images.</li>
+          <li>All processing happens in your browser. No upload needed.</li>
+        </ul>
+      </aside>
+    </div>
+  </main>
+
+  <script src="../assets/js/api-client.js"></script>
+  <script src="../assets/js/youtube-thumbnail.js"></script>
+  <script src="../assets/js/app.js"></script>
+</body>
+</html>

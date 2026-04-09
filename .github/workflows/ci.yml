@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  push:
+    branches: ["main", "master"]
+  pull_request:
+
+jobs:
+  test-and-smoke:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm test
+
+      - name: Run smoke checks
+        run: npm run smoke
+
+      - name: Audit dependencies
+        run: npm audit --audit-level=high
+
+      - name: Build Docker image
+        run: docker build -t toolspage:ci .

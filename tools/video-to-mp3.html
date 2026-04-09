@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Video to MP3 - Toolspage</title>
+  <meta name="description" content="Extract MP3 audio from video files or supported platform URLs." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="../index.html">TOOLSPAGE</a>
+      <div class="nav-right">
+        <button id="themeToggle" class="theme-toggle" aria-label="Toggle dark mode">
+          <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <button id="menuBtn" class="menu-btn" aria-label="Open navigation">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+      <nav id="mainNav" class="main-nav" aria-label="Primary">
+        <a href="../index.html#tools">Tools</a>
+        <a href="../index.html#trust">Trust</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="tool-shell container">
+    <a class="back-link" href="../index.html">Back to Home</a>
+    <div class="tool-layout">
+      <section class="tool-panel">
+        <h1>Video to MP3</h1>
+        <p>Extract MP3 audio from uploaded video files, with optional URL mode for supported platforms.</p>
+        <form id="videoToMp3Form" class="tool-form">
+          <div>
+            <label for="videoToMp3File">Video file (optional if using URL)</label>
+            <input id="videoToMp3File" name="file" type="file" accept="video/*,.mp4,.mov,.mkv,.webm,.m4v" />
+          </div>
+          <div>
+            <label for="videoSourceUrl">Source URL (optional)</label>
+            <input id="videoSourceUrl" name="sourceUrl" type="url" placeholder="https://www.youtube.com/watch?v=..." />
+          </div>
+          <div class="inline-grid">
+            <div>
+              <label for="urlAudioQuality">URL mode quality</label>
+              <select id="urlAudioQuality" name="quality">
+                <option value="high">High</option>
+                <option value="medium">Medium</option>
+                <option value="low">Low</option>
+              </select>
+            </div>
+            <div>
+              <label for="audioBitrate">Audio quality (bitrate)</label>
+              <select id="audioBitrate" name="bitrateKbps">
+                <option value="128">128 kbps</option>
+                <option value="192" selected>192 kbps</option>
+                <option value="256">256 kbps</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="inline-grid">
+            <div class="form-group">
+              <label for="metaTitle">Custom title (optional)</label>
+              <input type="text" id="metaTitle" placeholder="e.g. My Awesome Track" />
+            </div>
+            <div class="form-group">
+              <label for="metaArtist">Custom artist (optional)</label>
+              <input type="text" id="metaArtist" placeholder="e.g. DJ Toolspage" />
+            </div>
+          </div>
+
+          <button class="btn btn-primary" type="submit">Extract MP3</button>
+          <p id="videoToMp3Status" class="muted" aria-live="polite"></p>
+          <div class="result-box" hidden data-result>
+            <p class="result-line" data-result-text></p>
+            <a href="#" class="tool-link" data-download-link>Download MP3</a>
+          </div>
+        </form>
+      </section>
+
+      <aside class="tool-panel">
+        <h2>Rights-safe mode</h2>
+        <ul>
+          <li>Upload mode works by default.</li>
+          <li>URL mode is optional and can be restricted via server allowlist.</li>
+          <li>URL mode prefers best available source quality by default.</li>
+        </ul>
+      </aside>
+    </div>
+  </main>
+
+  <script src="../assets/js/api-client.js"></script>
+  <script src="../assets/js/video-to-mp3.js"></script>
+  <script src="../assets/js/app.js"></script>
+</body>
+</html>
