@@ -17,6 +17,10 @@ if (pdfToJpgForm) {
     const submitBtn = pdfToJpgForm.querySelector('button[type="submit"]');
     if (submitBtn) submitBtn.disabled = true;
     try {
+      if (!window.pdfjsLib || typeof window.pdfjsLib.getDocument !== "function") {
+        throw new Error("PDF engine failed to load. Refresh the page and try again.");
+      }
+
       const bytes = await file.arrayBuffer();
       const loadingTask = window.pdfjsLib.getDocument({ data: bytes });
       const pdf = await loadingTask.promise;
@@ -45,12 +49,21 @@ if (pdfToJpgForm) {
       downloadLink.href = objectUrl;
       downloadLink.download = out;
       downloadLink.textContent = `Download ${out}`;
+      downloadLink.hidden = false;
+      resultBox.classList.remove("is-error");
+      resultBox.classList.add("is-success");
       resultBox.hidden = false;
     } catch (error) {
       if (resultText) {
         resultText.textContent = error && error.message ? error.message : "Failed to convert PDF.";
       }
+      if (downloadLink) {
+        downloadLink.hidden = true;
+        downloadLink.removeAttribute("href");
+      }
       if (resultBox) {
+        resultBox.classList.remove("is-success");
+        resultBox.classList.add("is-error");
         resultBox.hidden = false;
       }
     } finally {

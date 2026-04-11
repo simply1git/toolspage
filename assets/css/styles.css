@@ -486,8 +486,19 @@ summary:focus-visible,
   margin-top: 0.4rem;
   border: 1px dashed var(--line);
   border-radius: 12px;
-  background: #fffcf2;
-  padding: 0.8rem;
+  background: color-mix(in srgb, var(--card-glass) 85%, transparent);
+  color: var(--ink);
+  padding: 0.9rem;
+}
+
+.result-box.is-success {
+  border-color: #4ade80;
+  background: color-mix(in srgb, #22c55e 14%, var(--card-glass));
+}
+
+.result-box.is-error {
+  border-color: #f87171;
+  background: color-mix(in srgb, #ef4444 12%, var(--card-glass));
 }
 
 .downloader-panel {
@@ -781,6 +792,11 @@ summary:focus-visible,
 .result-line {
   margin: 0 0 0.5rem;
   font-weight: 600;
+  color: var(--ink);
+}
+
+.result-box .tool-link {
+  margin-top: 0;
 }
 
 .back-link {
