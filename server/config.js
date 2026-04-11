@@ -39,6 +39,7 @@ const env = process.env.NODE_ENV || "development";
 const isProduction = env === "production";
 const apiKey = process.env.API_KEY || "";
 const corsOrigins = parseCsv(process.env.CORS_ORIGINS);
+const corsAllowAll = parseBoolean(process.env.CORS_ALLOW_ALL, false) || corsOrigins.includes("*");
 const strictProductionConfig = parseBoolean(process.env.STRICT_PRODUCTION_CONFIG, true);
 const outputSigningSecret = process.env.OUTPUT_SIGNING_SECRET || apiKey;
 
@@ -46,7 +47,7 @@ if (isProduction && strictProductionConfig) {
   if (!apiKey) {
     throw new Error("API_KEY is required when NODE_ENV=production");
   }
-  if (!corsOrigins.length) {
+  if (!corsOrigins.length && !corsAllowAll) {
     throw new Error("CORS_ORIGINS must be set when NODE_ENV=production");
   }
   if (!outputSigningSecret || String(outputSigningSecret).length < 16) {
@@ -121,6 +122,7 @@ module.exports = {
   apiKey,
   outputSigningSecret,
   strictProductionConfig,
+  corsAllowAll,
   corsOrigins,
   allowInMemoryQueueFallback: parseBoolean(process.env.ALLOW_IN_MEMORY_QUEUE_FALLBACK, !isProduction),
   staticRoot: path.resolve(__dirname, ".."),

@@ -17,7 +17,7 @@ function requestIdMiddleware(req, res, next) {
 }
 
 function corsMiddleware() {
-  if (!config.corsOrigins.length) {
+  if (config.corsAllowAll || !config.corsOrigins.length) {
     return cors({
       origin: true,
       methods: ["GET", "POST", "OPTIONS"],
