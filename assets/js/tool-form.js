@@ -79,6 +79,8 @@ document.querySelectorAll("[data-tool-form]").forEach((form) => {
     }
 
     if (resultBox) {
+      resultBox.classList.remove("is-error");
+      resultBox.classList.add("is-success");
       resultBox.hidden = false;
       if (window.playSuccessCue) {
         window.playSuccessCue();

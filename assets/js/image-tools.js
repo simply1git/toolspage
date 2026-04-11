@@ -1,8 +1,11 @@
 function setResult(form, message, blob, fileName) {
+  if (window.ToolspageApi && typeof window.ToolspageApi.renderDownloadResult === "function") {
+    window.ToolspageApi.renderDownloadResult(form, message, blob, fileName);
+    return;
+  }
   const resultBox = form.querySelector("[data-result]");
   const resultText = form.querySelector("[data-result-text]");
   const downloadLink = form.querySelector("[data-download-link]");
-
   if (!resultBox || !resultText || !downloadLink) {
     return;
   }
@@ -16,6 +19,9 @@ function setResult(form, message, blob, fileName) {
   downloadLink.href = href;
   downloadLink.download = fileName;
   downloadLink.textContent = `Download ${fileName}`;
+  downloadLink.hidden = false;
+  resultBox.classList.remove("is-error");
+  resultBox.classList.add("is-success");
   resultBox.hidden = false;
 }
 
@@ -64,10 +70,13 @@ if (compressForm) {
       const out = file.name.replace(/\.[^.]+$/, "") + "-compressed.jpg";
       setResult(compressForm, `Compression complete (${Math.round(quality * 100)}% quality).`, blob, out);
     } catch (error) {
-      const resultBox = compressForm.querySelector("[data-result]");
-      const resultText = compressForm.querySelector("[data-result-text]");
-      if (resultText) resultText.textContent = error && error.message ? error.message : "Failed to compress image.";
-      if (resultBox) resultBox.hidden = false;
+      if (window.ToolspageApi && typeof window.ToolspageApi.renderResultMessage === "function") {
+        window.ToolspageApi.renderResultMessage(
+          compressForm,
+          error && error.message ? error.message : "Failed to compress image.",
+          true,
+        );
+      }
     } finally {
       if (submitBtn) submitBtn.disabled = false;
     }
@@ -93,10 +102,13 @@ if (resizeForm) {
       const out = file.name.replace(/\.[^.]+$/, "") + `-${width}x${height}.png`;
       setResult(resizeForm, `Resize complete (${width}x${height}).`, blob, out);
     } catch (error) {
-      const resultBox = resizeForm.querySelector("[data-result]");
-      const resultText = resizeForm.querySelector("[data-result-text]");
-      if (resultText) resultText.textContent = error && error.message ? error.message : "Failed to resize image.";
-      if (resultBox) resultBox.hidden = false;
+      if (window.ToolspageApi && typeof window.ToolspageApi.renderResultMessage === "function") {
+        window.ToolspageApi.renderResultMessage(
+          resizeForm,
+          error && error.message ? error.message : "Failed to resize image.",
+          true,
+        );
+      }
     } finally {
       if (submitBtn) submitBtn.disabled = false;
     }
@@ -146,10 +158,13 @@ if (removeBgForm) {
       const out = file.name.replace(/\.[^.]+$/, "") + "-nobg.png";
       setResult(removeBgForm, "Background removal complete (edge-color heuristic).", blob, out);
     } catch (error) {
-      const resultBox = removeBgForm.querySelector("[data-result]");
-      const resultText = removeBgForm.querySelector("[data-result-text]");
-      if (resultText) resultText.textContent = error && error.message ? error.message : "Failed to remove background.";
-      if (resultBox) resultBox.hidden = false;
+      if (window.ToolspageApi && typeof window.ToolspageApi.renderResultMessage === "function") {
+        window.ToolspageApi.renderResultMessage(
+          removeBgForm,
+          error && error.message ? error.message : "Failed to remove background.",
+          true,
+        );
+      }
     } finally {
       if (submitBtn) submitBtn.disabled = false;
     }

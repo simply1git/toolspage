@@ -53,12 +53,21 @@ if (jpgToPdfForm) {
       downloadLink.href = objectUrl;
       downloadLink.download = out;
       downloadLink.textContent = `Download ${out}`;
+      downloadLink.hidden = false;
+      resultBox.classList.remove("is-error");
+      resultBox.classList.add("is-success");
       resultBox.hidden = false;
     } catch (error) {
       if (resultText) {
         resultText.textContent = error && error.message ? error.message : "Failed to convert images.";
       }
+      if (downloadLink) {
+        downloadLink.hidden = true;
+        downloadLink.removeAttribute("href");
+      }
       if (resultBox) {
+        resultBox.classList.remove("is-success");
+        resultBox.classList.add("is-error");
         resultBox.hidden = false;
       }
     } finally {

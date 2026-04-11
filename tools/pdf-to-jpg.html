@@ -45,8 +45,12 @@
       <aside class="tool-panel"><h2>Note</h2><p class="muted">For full multi-page export and ZIP delivery, add backend processing in v2.</p></aside>
     </div>
   </main>
-  <script src="../assets/vendor/pdf.min.js"></script>
-  <script>pdfjsLib.GlobalWorkerOptions.workerSrc = "../assets/vendor/pdf.worker.min.js";</script>
+  <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
+  <script>
+    if (window.pdfjsLib && window.pdfjsLib.GlobalWorkerOptions) {
+      window.pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js";
+    }
+  </script>
   <script src="../assets/js/api-client.js"></script>
   <script src="../assets/js/pdf-to-jpg.js"></script>
   <script src="../assets/js/app.js"></script>

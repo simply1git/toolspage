@@ -234,6 +234,9 @@ if (form) {
         downloadLink.target = "_blank";
         downloadLink.rel = "noopener noreferrer";
         downloadLink.textContent = "Open original image";
+        downloadLink.hidden = false;
+        resultBox.classList.remove("is-error");
+        resultBox.classList.add("is-success");
         resultBox.hidden = false;
       }
       return false;

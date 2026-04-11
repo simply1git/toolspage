@@ -79,6 +79,35 @@ function parseDispositionFilename(contentDisposition, fallbackName) {
   return match ? match[1] : fallbackName;
 }
 
+function setResultBoxState(resultBox, isError) {
+  if (!resultBox) {
+    return;
+  }
+  resultBox.classList.toggle("is-error", Boolean(isError));
+  resultBox.classList.toggle("is-success", !isError);
+}
+
+function renderResultMessage(form, message, isError) {
+  const resultBox = form.querySelector("[data-result]");
+  const resultText = form.querySelector("[data-result-text]");
+  const downloadLink = form.querySelector("[data-download-link]");
+
+  if (!resultBox || !resultText) {
+    return;
+  }
+
+  resultText.textContent = String(message || "");
+  if (downloadLink && isError) {
+    downloadLink.hidden = true;
+    downloadLink.removeAttribute("href");
+  }
+  if (downloadLink && !isError) {
+    downloadLink.hidden = false;
+  }
+  setResultBoxState(resultBox, Boolean(isError));
+  resultBox.hidden = false;
+}
+
 async function submitFileTool({ endpoint, formData, fallbackName }) {
   const config = await getRuntimeConfig();
   const headers = {
@@ -253,6 +282,8 @@ function renderDownloadResult(form, message, blob, fileName) {
   downloadLink.dataset.objectUrl = url;
   downloadLink.download = fileName;
   downloadLink.textContent = `Download ${fileName}`;
+  downloadLink.hidden = false;
+  setResultBoxState(resultBox, false);
   resultBox.hidden = false;
   
   if (window.playSuccessCue) {
@@ -411,6 +442,8 @@ window.ToolspageApi = {
   waitForJob,
   downloadJobResult,
   renderDownloadResult,
+  renderResultMessage,
+  setResultBoxState,
   createToolRuntime,
   runJobFlow,
   submitWithAutoAsync,
