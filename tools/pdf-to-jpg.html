@@ -34,15 +34,21 @@
     <div class="tool-layout">
       <section class="tool-panel">
         <h1>PDF to JPG</h1>
-        <p>Convert the first page of a PDF to PNG image (v1 behavior).</p>
+        <p>Convert PDF pages to JPG. Small single-page requests run in-browser; multi-page or larger files are processed via backend queue.</p>
         <form id="pdfToJpgForm" class="tool-form">
           <div><label for="pdfToJpgFile">PDF file</label><input id="pdfToJpgFile" type="file" accept=".pdf,application/pdf" required /></div>
           <div><label for="pdfRenderScale">Quality scale</label><select id="pdfRenderScale"><option value="1.2">Standard</option><option value="1.8" selected>High</option><option value="2.4">Very high</option></select></div>
+          <div><label for="pdfPageMode">Page scope</label><select id="pdfPageMode"><option value="all" selected>All pages</option><option value="range">Custom range</option></select></div>
+          <div class="inline-grid" id="pdfPageRange" hidden>
+            <div><label for="pdfStartPage">Start page</label><input id="pdfStartPage" type="number" min="1" value="1" /></div>
+            <div><label for="pdfEndPage">End page</label><input id="pdfEndPage" type="number" min="1" value="1" /></div>
+          </div>
           <button class="btn btn-primary" type="submit">Convert</button>
+          <p class="muted" id="pdfToJpgStatus" aria-live="polite"></p>
           <div class="result-box" hidden data-result><p class="result-line" data-result-text></p><a href="#" class="tool-link" data-download-link>Download</a></div>
         </form>
       </section>
-      <aside class="tool-panel"><h2>Note</h2><p class="muted">For full multi-page export and ZIP delivery, add backend processing in v2.</p></aside>
+      <aside class="tool-panel"><h2>Note</h2><p class="muted">Multi-page output is delivered as a ZIP archive of JPG files. Single-page output downloads as JPG.</p></aside>
     </div>
   </main>
   <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>

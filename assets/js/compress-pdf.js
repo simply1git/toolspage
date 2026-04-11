@@ -29,8 +29,12 @@ if (compressPdfForm) {
       const runtime = await ToolspageApi.getRuntimeConfig();
       const fallbackName = file.name.replace(/\.[^.]+$/, "") + "-compressed.pdf";
       let result;
+      const thresholdMb = Number(runtime && runtime.asyncThresholdMb);
+      const thresholdBytes = Number.isFinite(thresholdMb) && thresholdMb > 0
+        ? thresholdMb * 1024 * 1024
+        : (8 * 1024 * 1024);
 
-      if (file.size > runtime.asyncThresholdMb * 1024 * 1024) {
+      if (file.size > thresholdBytes) {
         ToolspageApi.setStatus(statusEl, "Large file detected. Queuing background job...", false);
         const job = await ToolspageApi.startAsyncJob({
           endpoint: "/api/v1/jobs/compress-pdf",

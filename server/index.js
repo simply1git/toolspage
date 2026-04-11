@@ -504,6 +504,32 @@ async function createApp() {
   }
   });
 
+  app.post("/api/v1/jobs/pdf-to-jpg", requireApiKey, upload.single("file"), async (req, res, next) => {
+  try {
+    if (!(await assertQueueCapacity("pdf", res))) {
+      return;
+    }
+
+    const file = req.file;
+    const payload = {
+      qualityScale: req.body.qualityScale,
+      pageMode: req.body.pageMode,
+      startPage: req.body.startPage,
+      endPage: req.body.endPage,
+    };
+
+    const job = managerForType("pdf-to-jpg").createJob({
+      type: "pdf-to-jpg",
+      meta: { inputName: file ? file.originalname : "unknown" },
+      payload: buildQueuedFilePayload(file, payload),
+    });
+
+    res.status(202).json({ ok: true, job: await job });
+  } catch (err) {
+    next(err);
+  }
+  });
+
   app.post("/api/v1/tools/video-compress", requireApiKey, uploadMedia.single("file"), async (req, res, next) => {
   try {
     const { buffer, outputName, contentType, stats } = await compressVideo(req.file, {

@@ -187,16 +187,39 @@ async function startJsonJob({ endpoint, payload }) {
 
 async function waitForJob(jobId, onTick) {
   return new Promise((resolve, reject) => {
+    const timeoutMs = 120000;
+    let timeout = null;
+    const armTimeout = () => {
+      if (timeout) {
+        clearTimeout(timeout);
+      }
+      timeout = setTimeout(() => {
+        if (source) {
+          source.close();
+        }
+        reject(new Error("Live processing stream timed out. Please retry."));
+      }, timeoutMs);
+    };
+
     let url = buildApiUrl(`/api/v1/jobs/${encodeURIComponent(jobId)}/progress`);
     if (window.TOOLSPAGE_API_KEY) {
       url += `?apiKey=${encodeURIComponent(window.TOOLSPAGE_API_KEY)}`;
     }
 
-    const source = new EventSource(url);
+    let source;
+    try {
+      source = new EventSource(url);
+    } catch (_error) {
+      reject(new Error("Could not open live processing stream."));
+      return;
+    }
+
+    armTimeout();
 
     source.addEventListener("status", (e) => {
       try {
         const payload = JSON.parse(e.data);
+        armTimeout();
         if (onTick) onTick(payload);
       } catch (err) {}
     });
@@ -204,6 +227,9 @@ async function waitForJob(jobId, onTick) {
     source.addEventListener("complete", (e) => {
       try {
         const payload = JSON.parse(e.data);
+        if (timeout) {
+          clearTimeout(timeout);
+        }
         source.close();
         if (payload.status === "failed") {
           reject(new Error(payload.error || "Job failed"));
@@ -217,6 +243,9 @@ async function waitForJob(jobId, onTick) {
     });
 
     source.addEventListener("error", (e) => {
+      if (timeout) {
+        clearTimeout(timeout);
+      }
       source.close();
       if (e.data) {
         try {

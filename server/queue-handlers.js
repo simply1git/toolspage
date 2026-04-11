@@ -1,5 +1,5 @@
 const { parseQueuedFilePayload } = require("./job-payload");
-const { convertPdfToDocx, compressPdf } = require("./services");
+const { convertPdfToDocx, compressPdf, convertPdfToJpg } = require("./services");
 const { compressVideo, videoToMp3, convertAudio, videoToMp3FromUrl, downloadMediaFromUrl } = require("./media");
 
 function createQueueHandlers(outputStore, config, logger = console) {
@@ -33,6 +33,22 @@ function createQueueHandlers(outputStore, config, logger = console) {
         buffer: result.buffer,
         outputName: result.outputName,
         contentType: "application/pdf",
+      });
+      return {
+        ...stored,
+        stats: result.stats || null,
+      };
+    },
+    "pdf-to-jpg": async (payload, ctx) => {
+      report(ctx, { status: "running", stage: "rendering-pages", progress: 30 });
+      const file = parseQueuedFilePayload(payload);
+      const options = (payload && payload.options) || {};
+      const result = await convertPdfToJpg(file, options, config);
+      report(ctx, { status: "running", stage: "storing", progress: 85 });
+      const stored = await outputStore.save({
+        buffer: result.buffer,
+        outputName: result.outputName,
+        contentType: result.contentType,
       });
       return {
         ...stored,
