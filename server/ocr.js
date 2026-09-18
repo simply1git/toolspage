@@ -1,9 +1,16 @@
 const { FormData, Blob } = globalThis;
 
-async function ocrSpacePdf(fileBuffer, apiKey) {
+const LANG_MAP = {
+  english: "eng",
+  spanish: "spa",
+  french: "fre",
+  german: "ger",
+};
+
+async function ocrSpacePdf(fileBuffer, apiKey, language) {
   const form = new FormData();
   form.append("apikey", apiKey);
-  form.append("language", "eng");
+  form.append("language", language);
   form.append("isOverlayRequired", "false");
   form.append("file", new Blob([fileBuffer], { type: "application/pdf" }), "document.pdf");
 
@@ -33,7 +40,9 @@ async function extractPdfTextWithOcr(file, options, config) {
   }
 
   if (config.ocrProvider === "ocrspace" && config.ocrSpaceApiKey) {
-    return ocrSpacePdf(file.buffer, config.ocrSpaceApiKey);
+    const language = String(options.language || "english").toLowerCase();
+    const langCode = LANG_MAP[language] || "eng";
+    return ocrSpacePdf(file.buffer, config.ocrSpaceApiKey, langCode);
   }
 
   const err = new Error("OCR mode requested but OCR provider is not configured");

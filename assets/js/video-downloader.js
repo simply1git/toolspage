@@ -415,17 +415,21 @@ if (form) {
     });
   }
 
-  sourceUrlEl.addEventListener("input", () => {
-    const platform = detectPlatform(sourceUrlEl.value);
-    if (platformHintEl) {
-      platformHintEl.textContent = platform ? `Platform: ${platform}` : "";
-    }
-  });
+  if (sourceUrlEl) {
+    sourceUrlEl.addEventListener("input", () => {
+      const platform = detectPlatform(sourceUrlEl.value);
+      if (platformHintEl) {
+        platformHintEl.textContent = platform ? `Platform: ${platform}` : "";
+      }
+    });
+  }
 
-  qualityProfileEl.addEventListener("change", () => {
-    toggleModeControls();
-    saveSettings();
-  });
+  if (qualityProfileEl) {
+    qualityProfileEl.addEventListener("change", () => {
+      toggleModeControls();
+      saveSettings();
+    });
+  }
 
   [
     videoFormatEl,
@@ -436,7 +440,7 @@ if (form) {
     subtitleFormatEl,
     subtitleLanguagesEl,
   ].forEach((el) => {
-    el.addEventListener("change", saveSettings);
+    if (el) el.addEventListener("change", saveSettings);
   });
 
   if (pasteUrlBtnEl) {

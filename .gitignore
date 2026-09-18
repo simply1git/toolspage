@@ -1,5 +1,28 @@
+# Dependencies
 node_modules/
+
+# Environment
 .env
+.env.*
+!.env.example
+production.env
+
+# Logs and test outputs
 npm-debug.log*
 *.log
+api-startup.log
+api-test-current.log
+ci-current.log
 coverage/
+
+# Temporary video and download files
+tmp-download*
+data/outputs/
+data/temp/
+
+# OS and IDE
+.vscode/
+.idea/
+.claude/
+.DS_Store
+Thumbs.db
